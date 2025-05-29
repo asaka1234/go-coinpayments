@@ -1,10 +1,8 @@
-package coinpayments_test
+package coinpayments
 
 import (
 	"os"
 	"testing"
-
-	"github.com/jeffwalsh/go-coinpayments"
 )
 
 func TestCallCreateTransfer(t *testing.T) {
@@ -16,7 +14,7 @@ func TestCallCreateTransfer(t *testing.T) {
 			t.Fatalf("Should have instantiated a new client with valid config and http client, but it threw error: %s", err.Error())
 		}
 
-		_, err = client.CallCreateTransfer(&coinpayments.WithdrawalRequest{Amount: "1", Currency: "BTC", MerchantID: "merchantID", PBNTag: pbnTag, AutoConfirm: 0})
+		_, err = client.CallCreateTransfer(&WithdrawalRequest{Amount: "1", Currency: "BTC", MerchantID: "merchantID", PBNTag: pbnTag, AutoConfirm: 0})
 		if err != nil {
 			t.Fatalf("Could not call create Withdrawal: %s", err.Error())
 		}

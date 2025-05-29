@@ -1,12 +1,10 @@
-package coinpayments_test
+package coinpayments
 
 import (
 	"net/http"
 	"os"
 	"testing"
 	"time"
-
-	"github.com/jeffwalsh/go-coinpayments"
 )
 
 func TestCallGetConversionLimits(t *testing.T) {
@@ -20,22 +18,22 @@ func TestCallGetConversionLimits(t *testing.T) {
 		t.Fatal("no privatekey provided in environment")
 	}
 
-	cfg := &coinpayments.Config{
+	cfg := &Config{
 		PrivateKey: priv,
 		PublicKey:  pub,
 	}
 	hc := &http.Client{Timeout: time.Minute * 1}
 
-	client, err := coinpayments.NewClient(cfg, hc)
+	client, err := NewClient(cfg, hc)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	req1 := coinpayments.ConvertLimitRequest{
+	req1 := ConvertLimitRequest{
 		From: "ETH",
 		To:   "BTC",
 	}
-	req2 := coinpayments.ConvertLimitRequest{
+	req2 := ConvertLimitRequest{
 		From: "BTC",
 		To:   "ETH",
 	}

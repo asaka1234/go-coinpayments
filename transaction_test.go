@@ -1,10 +1,8 @@
-package coinpayments_test
+package coinpayments
 
 import (
 	"fmt"
 	"testing"
-
-	"github.com/jeffwalsh/go-coinpayments"
 )
 
 func TestCallGetTxInfo(t *testing.T) {
@@ -13,7 +11,7 @@ func TestCallGetTxInfo(t *testing.T) {
 		t.Fatal("should have instantiated a new client with valid configuration")
 	}
 
-	resp, err := client.CallGetTxInfo(&coinpayments.TxInfoRequest{TxID: "CPCH3A2HBY7R92IOCQNYPL1G8X", Full: "0"})
+	resp, err := client.CallGetTxInfo(&TxInfoRequest{TxID: "CPCH3A2HBY7R92IOCQNYPL1G8X", Full: "0"})
 	if err != nil {
 		t.Fatal("error getting tx info ", err)
 	}
@@ -26,12 +24,12 @@ func TestCallCreateTransaction(t *testing.T) {
 		t.Fatalf("Should have instantiated a new client with valid config and http client, but it threw error: %s", err.Error())
 	}
 
-	resp, err := client.CallCreateTransaction(&coinpayments.TransactionRequest{Amount: "100", Currency1: "USD", Currency2: "BTC", BuyerEmail: "jeff@internet.com"})
+	resp, err := client.CallCreateTransaction(&TransactionRequest{Amount: "100", Currency1: "USD", Currency2: "BTC", BuyerEmail: "jeff@internet.com"})
 	if err != nil {
 		t.Fatalf("Could not call create transaction: %s", err.Error())
 	}
 
-	_, err = client.CallGetTxInfo(&coinpayments.TxInfoRequest{TxID: resp.TxnID})
+	_, err = client.CallGetTxInfo(&TxInfoRequest{TxID: resp.TxnID})
 
 	if err != nil {
 		t.Fatalf("Could not call get tx info: %s", err.Error())
@@ -45,7 +43,7 @@ func TestCallGetCallbackAddress(t *testing.T) {
 		t.Fatalf("Should have instantiated a new client with valid config and http client, but it threw error: %s", err.Error())
 	}
 
-	_, err = client.CallGetCallbackAddress(&coinpayments.CallbackAddressRequest{Currency: "BTC"})
+	_, err = client.CallGetCallbackAddress(&CallbackAddressRequest{Currency: "BTC"})
 
 	if err != nil {
 		t.Fatalf("Could not call get callback address: %s", err.Error())
@@ -59,7 +57,7 @@ func TestCallGetDepositAddress(t *testing.T) {
 		t.Fatalf("Should have instantiated a new client with valid config and http client, but it threw error: %s", err.Error())
 	}
 
-	_, err = client.CallGetDepositAddress(&coinpayments.DepositAddressRequest{Currency: "BTC"})
+	_, err = client.CallGetDepositAddress(&DepositAddressRequest{Currency: "BTC"})
 
 	if err != nil {
 		t.Fatalf("Could not call get callback address: %s", err.Error())
@@ -73,7 +71,7 @@ func TestCallGetTxList(t *testing.T) {
 		t.Fatalf("Should have instantiated a new client with valid config and http client, but it threw error: %s", err.Error())
 	}
 
-	_, err = client.CallGetTxList(&coinpayments.TxListRequest{})
+	_, err = client.CallGetTxList(&TxListRequest{})
 
 	if err != nil {
 		t.Fatalf("Could not call get tx list: %s", err.Error())
